@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest SSB Material - RFB SSB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #e67e22;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --accent-color: #e74c3c;
+            --text-color: #34495e;
+            --text-light: #7f8c8d;
+            --success-color: #27ae60;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.8;
+            background-color: #f5f7fa;
+            padding-top: 80px;
+        }
+        
+        /* Enhanced Navigation Bar */
+        .navbar {
+            background-color: var(--dark-color) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 12px 0;
+            transition: all 0.4s;
+        }
+        
+        .navbar.scrolled {
+            padding: 8px 0;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 8px 15px !important;
+            margin: 0 5px;
+            color: rgba(255, 255, 255, 0.85) !important;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 15px;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: calc(100% - 30px);
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+        }
+        
+        /* Updated heading styles for full underline */
+        .section-title, .material-heading, .footer-links h5, .feature-box h3 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+        
+        .section-title::after, 
+        .material-heading::after, 
+        .footer-links h5::after,
+        .feature-box h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+        }
+        
+        /* Adjust specific heading underline styles */
+        .material-heading::after {
+            height: 3px;
+            background: var(--secondary-color);
+        }
+        
+        .footer-links h5::after {
+            height: 3px;
+            bottom: -12px;
+        }
+        
+        .feature-box h3::after {
+            height: 2px;
+            background: var(--primary-color);
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .material-section {
+            background-color: white;
+            padding: 80px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin: 60px 0;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .material-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.1) 0%, rgba(0,0,0,0) 70%);
+        }
+        
+        .material-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 40px 0 20px;
+        }
+        
+        .topic-list {
+            list-style-type: none;
+            padding-left: 0;
+            column-count: 2;
+            column-gap: 30px;
+        }
+        
+        .topic-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            break-inside: avoid;
+        }
+        
+        .topic-list li::before {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+
+        /* Enhanced CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+        }
+        
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 15px 40px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-btn:hover {
+            background-color: var(--dark-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Enhanced Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            color: white;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+        
+        .footer-links h5 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 12px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        .heart-icon {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin: 0 3px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .material-section {
+                padding: 60px 40px;
+            }
+            
+            .cta-section {
+                padding: 60px 0;
+            }
+            
+            .navbar-brand img,
+            .footer-logo img {
+                height: 35px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .material-section {
+                padding: 50px 30px;
+                margin: 40px 0;
+            }
+            
+            .topic-list {
+                column-count: 1;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .footer {
+                padding: 60px 0 25px;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .navbar-brand img,
+            .footer-logo img {
+                height: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .material-section {
+                padding: 40px 25px;
+            }
+            
+            .material-heading {
+                font-size: 1.4rem;
+            }
+            
+            .cta-title {
+                font-size: 1.8rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            
+            .navbar-brand img,
+            .footer-logo img {
+                height: 25px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/hero-image.png" alt="RFB SSB Logo">
+                RFB SSB
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="success.html">Success Stories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="latest-material.html">Latest SSB Material</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Material Section -->
+    <div class="container">
+        <div class="material-section">
+            <h1 class="section-title text-center">Latest SSB Material</h1>
+            <p class="text-center section-subtitle">Comprehensive collection of topics for Lecturette and Group Discussion preparation</p>
+            
+            <p class="text-center">Stay updated with the latest topics and trends in SSB interviews. Our carefully curated material helps you prepare effectively for both Lecturette and Group Discussion rounds, covering a wide range of subjects relevant to the Defence sector and current affairs.</p>
+            
+            <h3 class="material-heading">Lecturette Topics</h3>
+            <ul class="topic-list">
+                <li>One Nation, One Election</li>
+                <li>India's G20 Presidency</li>
+                <li>Israel-Hamas Conflict</li>
+                <li>Role of India in BRICS</li>
+                <li>Uniform Civil Code</li>
+                <li>Ram Mandir Inauguration</li>
+                <li>NRC and CAA</li>
+                <li>Indo-China Border Disputes</li>
+                <li>India's Space Achievements (Chandrayaan, Gaganyaan)</li>
+                <li>Russia-Ukraine War</li>
+                <li>Women Empowerment</li>
+                <li>Reservation System in India</li>
+                <li>Unemployment in India</li>
+                <li>Corruption in Public Life</li>
+                <li>Population Explosion</li>
+                <li>LGBTQ+ Rights</li>
+                <li>Drug Abuse Among Youth</li>
+                <li>Casteism in India</li>
+                <li>Child Labour</li>
+                <li>Acid Attack Survivors</li>
+                <li>AFSPA (Armed Forces Special Powers Act)</li>
+                <li>Modernization of Indian Armed Forces</li>
+                <li>Role of India in UN Peacekeeping</li>
+                <li>Surgical Strikes</li>
+                <li>Make in India in Defense</li>
+                <li>Border Security Forces</li>
+                <li>Role of IAF in Disaster Relief</li>
+                <li>National Security Threats</li>
+                <li>Nuclear Policy of India</li>
+                <li>Role of DRDO</li>
+                <li>Climate Change</li>
+                <li>Global Warming</li>
+                <li>Pollution in Cities</li>
+                <li>Afforestation and Reforestation</li>
+                <li>Water Crisis in Indian Cities</li>
+                <li>Deforestation</li>
+                <li>Ban on Plastic</li>
+                <li>Electric Vehicles</li>
+                <li>Green Energy in India</li>
+                <li>Paris Climate Agreement</li>
+                <li>Artificial Intelligence</li>
+                <li>Cyber Security</li>
+                <li>Deepfake Technology</li>
+                <li>Blockchain</li>
+                <li>5G and Beyond</li>
+                <li>Digital India</li>
+                <li>ISRO vs NASA</li>
+                <li>Internet of Things (IoT)</li>
+                <li>Facial Recognition Technology</li>
+                <li>E-Governance</li>
+                <li>Role of Artificial Intelligence in Modern Warfare</li>
+                <li>Impact of Social Media on Youth</li>
+                <li>Women Empowerment in Armed Forces</li>
+                <li>Cyber Security Challenges for India</li>
+                <li>Make in India in Defence Sector</li>
+                <li>Climate Change and National Security</li>
+                <li>Border Security Challenges</li>
+                <li>Space as the New Frontier for Defence</li>
+                <li>Atmanirbhar Bharat in Defence Production</li>
+                <li>Role of Youth in Nation Building</li>
+                
+            </ul>
+            
+            <h3 class="material-heading">Group Discussion Topics</h3>
+            <ul class="topic-list">
+                <li>18 SSB Allahabad:
+                    <br>GD 1: Tension in world order is due to:
+                    
+                    <br>- Leadership
+                    
+                    <br>- Arms race
+                    
+                    <br>- Lack of resources<p></p>
+                    
+                    GD 2: Which is better ?
+                    
+                    <br>- Live in relationship
+                      
+                    <br>- Arrange marriage
+                     
+                    <br>- Love marriage
+                    
+
+                </li>
+                <li>ACC Entry:
+                    <br>GD 1: What's the reason of disparities of development of India??
+                    <br>- Caste
+
+                    <br>- Gender  
+
+                    <br>- Economy <p></p>
+
+                   GD 2: What's the reason of dislocation of resources??? 
+
+                    <br>- Governance 
+ 
+                    <br>- State
+
+                    <br>- Population
+                </li>
+                <li>17 SSB Bangalore:
+                    <br> GD 1: There has been many conflicts around the world <br>What is the main reason 
+                    <br>- Economy disparities 
+                    <br>- Religious extremism
+                    <br>- Climate change  <p></p>
+
+                    GD 2: People not feeling satisfied and mental health decline due to
+                    <br>- Social media
+                    <br>- Lifestyle habits
+                    <br>- Pressure of success
+                </li>
+                <li>Privatization of Defence Industries: Pros and Cons</li>
+                <li>Impact of Technology on Human Relationships</li>
+                <li>Is a strong military more important than a strong economy?</li>
+                <li>Role of Discipline in Nation Building</li>
+                <li>Should India have a Presidential form of government?</li>
+                <li>Is the caste system still relevant in modern India?</li>
+                <li>Education vs. Experience: What matters more?</li>
+                <li>Can India become a global superpower by 2047?</li>
+                <li>Impact of Western Culture on Indian Youth</li>
+                <li>Should India have a two-child policy?</li>
+                <li>Is democracy the best form of government for India?</li>
+                <li>Role of Media in a Democracy</li>
+                <li>Should sports be made compulsory in schools?</li>
+                <li>Is reservation system benefiting the targeted groups?</li>
+                <li>Capital Punishment: Should it be abolished?</li>
+                <li>Are smart classes making students less smart?</li>
+                <li>Should voting be made compulsory in India?</li>
+            </ul>
+            
+            <div class="text-center mt-5">
+                <p>For more detailed analysis and practice sessions on these topics, join our comprehensive SSB guidance program.</p>
+                <a href="contact.html" class="btn btn-primary">Enquire Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Ace Your SSB Interview?</h2>
+            <p class="mb-4">Join our expert-led coaching program and get personalized guidance for all SSB tests.</p>
+            <a href="contact.html" class="btn cta-btn btn-lg">Enroll Now</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <a href="index.html" class="footer-logo">
+                        <img src="images/hero-image.png" alt="RFB SSB Logo" height="40" class="me-2">
+                        RFB SSB
+                    </a>
+                    <p>Premier coaching institute for SSB Interview in India. Empowering aspirants to serve the nation with pride.</p>
+                    <div class="social-icons mt-4">
+                        <a href="https://www.instagram.com/rassi.fatta.balli/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@rassifattaballi" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://t.me/rassifattaballi" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="success.html">Success Stories</a></li>
+                            <li><a href="latest-material.html">Latest SSB Material</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Courses</h5>
+                        <ul>
+                            <li><a href="courses.html">COMPLETE SSB GUIDANCE</a></li>
+                            <li><a href="courses.html">PPDT COURSE</a></li>
+                            <li><a href="courses.html">MOCK INTERVIEW COURSE</a></li>
+                            <li><a href="courses.html">PSYCH ASSESSMENT COURSE</a></li>
+                            <li><a href="courses.html">GTO COURSE</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-links">
+                        <h5>Contact Us</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> RFB SSB GUIDANCE, Boring Rd, crossing, Sri Krishna Puri, Patna, Bihar 800001</li>
+                            <li><i class="fas fa-phone me-2"></i> +91 9334948814</li>
+                            <li><i class="fas fa-envelope me-2"></i> contact@rfbssb.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 text-center copyright">
+                    <p class="mb-0">&copy; 2023 RFB SSB. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation for topic lists on scroll
+        const topicLists = document.querySelectorAll('.topic-list');
+        
+        function checkLists() {
+            const triggerBottom = window.innerHeight / 5 * 4;
+            
+            topicLists.forEach(list => {
+                const listTop = list.getBoundingClientRect().top;
+                
+                if (listTop < triggerBottom) {
+                    list.style.opacity = '1';
+                    list.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Initialize lists as invisible
+        topicLists.forEach(list => {
+            list.style.opacity = '0';
+            list.style.transform = 'translateY(20px)';
+            list.style.transition = 'all 0.6s ease';
+        });
+        
+        window.addEventListener('scroll', checkLists);
+        checkLists(); // Run once on load
+    </script>
+</body>
+</html>

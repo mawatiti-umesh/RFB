@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - RFB SSB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #e67e22;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --accent-color: #e74c3c;
+            --text-color: #34495e;
+            --text-light: #7f8c8d;
+            --success-color: #27ae60;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.8;
+            background-color: #f5f7fa;
+            padding-top: 80px;
+        }
+        
+        /* Enhanced Navigation Bar */
+        .navbar {
+            background-color: var(--dark-color) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 12px 0;
+            transition: all 0.4s;
+        }
+        
+        .navbar.scrolled {
+            padding: 8px 0;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 8px 15px !important;
+            margin: 0 5px;
+            color: rgba(255, 255, 255, 0.85) !important;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 15px;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: calc(100% - 30px);
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+        }
+        
+        /* Updated heading styles for full underline */
+        .section-title, .course-title, .footer-links h5, .feature-box h3 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+        
+        .section-title::after, 
+        .course-title::after, 
+        .footer-links h5::after,
+        .feature-box h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+        }
+        
+        /* Adjust specific heading underline styles */
+        .course-title::after {
+            height: 3px;
+            background: var(--primary-color);
+        }
+        
+        .footer-links h5::after {
+            height: 3px;
+            bottom: -12px;
+        }
+        
+        .feature-box h3::after {
+            height: 2px;
+            background: var(--primary-color);
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* About Section Style for Courses */
+        .about-section {
+            background-color: white;
+            padding: 80px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin: 60px 0;
+            border-left: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.1) 0%, rgba(0,0,0,0) 70%);
+        }
+        
+        .feature-box {
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s;
+            height: 100%;
+            border-top: 4px solid var(--primary-color);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+        
+        .feature-box:hover .feature-icon {
+            transform: scale(1.1);
+            color: var(--secondary-color);
+        }
+        
+        .feature-box h3 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .feature-box p {
+            color: var(--text-light);
+        }
+        
+        .methodology-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .methodology-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .methodology-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+        }
+
+        /* Enhanced CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+        }
+        
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 15px 40px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-btn:hover {
+            background-color: var(--dark-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Enhanced Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            color: white;
+        }
+        
+        .footer-logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+        }
+        
+        .footer-links h5 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 12px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        .heart-icon {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin: 0 3px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .about-section {
+                padding: 60px 40px;
+            }
+            
+            .cta-section {
+                padding: 60px 0;
+            }
+            
+            .navbar-brand img,
+            .footer-logo img {
+                height: 35px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .about-section {
+                padding: 50px 30px;
+                margin: 40px 0;
+            }
+            
+            .feature-box {
+                padding: 30px 25px;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .footer {
+                padding: 60px 0 25px;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .navbar-brand img,
+            .footer-logo img {
+                height: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-section {
+                padding: 40px 25px;
+            }
+            
+            .cta-title {
+                font-size: 1.8rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            
+            .navbar-brand img,
+            .footer-logo img {
+                height: 25px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/hero-image.png" alt="RFB SSB Logo">
+                RFB SSB
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="courses.html">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="success.html">Success Stories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="latest-material.html">Latest SSB Material</a></li>              
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Courses Section -->
+    <div class="container">
+        <div class="about-section">
+            <h2 class="section-title text-center">Our Comprehensive Courses</h2>
+            <p class="text-center section-subtitle">
+                Choose from our specialized programs designed to help you excel in Defence examinations. 
+                We have two different type of course duration:<br>
+                <b>SHORT TERM (1 MONTH COURSE + PRACTICE SESSION)</b><br>
+                <b>LONG TERM (3 MONTH COURSE + PRACTICE SESSION)</b>
+            </p>
+            
+            <div class="row">
+                <!-- Card 1: Complete SSB Guidance -->
+                <div class="col-lg-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>COMPLETE SSB GUIDANCE</h3>
+                        <p>
+                            Welcome to the ultimate resource for SSB (Services Selection Board) Interview preparation! Whether your ambition lies in the Indian Army, Navy, Air Force, or Indian Coast Guard, our comprehensive guide covers all essential aspects—from psychology tests and GTO tasks to personal interviews and Officer-Like Qualities (OLQs). With expert tips, mock tests, and proven success strategies, we're dedicated to helping you confidently crack the SSB interview and embark on your journey to becoming an officer in the Indian Armed Forces.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Card 2: PPDT Course -->
+                <div class="col-lg-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>PPDT COURSE</h3>
+                        <p>
+                            Master the Picture Perception and Discussion Test (PPDT) – the first and vital stage of your SSB interview journey. Our specialized PPDT training is designed to enhance your observation, narrative-building, and group discussion skills under time constraints. Through expert guidance, structured practice sets, and time-tested SSB techniques, you'll learn to interpret ambiguous images, craft impactful stories, and lead discussions with confidence. Enroll today and transform PPDT into your strongest asset in the SSB selection process.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Card 3: Mock Interview Course -->
+                <div class="col-lg-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3>MOCK INTERVIEW COURSE</h3>
+                        <p>
+                            Build unshakable confidence for your SSB Personal Interview with our expertly designed mock interview sessions. Crafted by seasoned professionals, our course replicates the real interview environment to help you express yourself clearly, manage pressure, and effectively showcase your Officer-Like Qualities (OLQs). With personalized feedback, a comprehensive question bank, and body language coaching, you'll be equipped to make a lasting impression on the interview board. Enroll now and step into your SSB interview fully prepared to succeed.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Card 4: Psych Assessment Course -->
+                <div class="col-lg-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <h3>PSYCH ASSESSMENT COURSE</h3>
+                        <p>
+                            Crack the SSB Psychological Tests—one of the most crucial and often misunderstood stages of the officer selection process. Our specialized training program is designed to help you authentically project Officer-Like Qualities (OLQs) through scientifically-structured modules, including the Thematic Apperception Test (TAT), Word Association Test (WAT), Situation Reaction Test (SRT), and Self-Description Test (SDT). Leveraging cognitive behavioral techniques, personality profiling, and extensive practice material, you'll learn to respond with clarity, consistency, and confidence. Enroll now to turn this high-stakes evaluation into a powerful advantage in your SSB journey.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Card 5: GTO Course -->
+                <div class="col-lg-6">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <h3>GTO COURSE</h3>
+                        <p>
+                            Master the decisive GTO (Group Testing Officer) round with proven strategies developed by expert faculty. Our comprehensive GTO training program is designed to develop natural leadership through structured modules covering all nine tasks: Group Discussion, Group Planning Exercise, Progressive Group Task, Half Group Task, Individual Obstacles, Command Task, Final Group Task, Lecturette, and Snake Race. With virtual obstacle simulations, interactive group dynamics sessions, and role-specific coaching, this course empowers you to demonstrate initiative, teamwork, and effective decision-making under pressure. Enroll today and turn the most challenging SSB round into your greatest strength.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Kickstart Your Defence Journey?</h2>
+            <p class="mb-4">Join hundreds of successful candidates who have realized their dreams with our guidance.</p>
+            <a href="contact.html" class="btn cta-btn btn-lg">Enroll Now</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <a href="index.html" class="footer-logo">
+                        <img src="images/hero-image.png" alt="RFB SSB Logo" height="40" class="me-2">
+                        RFB SSB
+                    </a>
+                    <p>Premier coaching institute for SSB Interview in India. Empowering aspirants to serve the nation with pride.</p>
+                    <div class="social-icons mt-4">
+                        <a href="https://www.instagram.com/rassi.fatta.balli/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@rassifattaballi" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://t.me/rassifattaballi" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="success.html">Success Stories</a></li>
+                            <li><a href="latest-material.html">Latest SSB Material</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>Courses</h5>
+                        <ul>
+                            <li><a href="courses.html">COMPLETE SSB GUIDANCE</a></li>
+                            <li><a href="courses.html">PPDT COURSE</a></li>
+                            <li><a href="courses.html">MOCK INTERVIEW COURSE</a></li>
+                            <li><a href="courses.html">PSYCH ASSESSMENT COURSE</a></li>
+                            <li><a href="courses.html">GTO COURSE</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-links">
+                        <h5>Contact Us</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> RFB SSB GUIDANCE, Boring Rd, crossing, Sri Krishna Puri, Patna, Bihar 800001</li>
+                            <li><i class="fas fa-phone me-2"></i> +91 9334948814</li>
+                            <li><i class="fas fa-envelope me-2"></i> contact@rfbssb.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 text-center copyright">
+                    <p class="mb-0">&copy; 2023 RFB SSB. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Animation for feature boxes on scroll
+        const featureBoxes = document.querySelectorAll('.feature-box');
+        
+        function checkBoxes() {
+            const triggerBottom = window.innerHeight / 5 * 4;
+            
+            featureBoxes.forEach(box => {
+                const boxTop = box.getBoundingClientRect().top;
+                
+                if (boxTop < triggerBottom) {
+                    box.style.opacity = '1';
+                    box.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Initialize boxes as invisible
+        featureBoxes.forEach(box => {
+            box.style.opacity = '0';
+            box.style.transform = 'translateY(20px)';
+            box.style.transition = 'all 0.6s ease';
+        });
+        
+        window.addEventListener('scroll', checkBoxes);
+        checkBoxes(); // Run once on load
+    </script>
+</body>
+</html>
